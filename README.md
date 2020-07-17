@@ -22,9 +22,7 @@ By default, the apache docker will expose port in 8010, so change this with in d
 ```bash
 $ mv .env.test .env
   docker-compose up --build 
-  docker-compose exec web php bin/console doctrine:database:create
   docker-compose exec web php bin/console doctrine:migration:migrate
-  docker-compose exec web php bin/console doctrine:fixtures:load 
 ```
 ### Quick start
 Access at the website on http://localhost:8010/contact/
