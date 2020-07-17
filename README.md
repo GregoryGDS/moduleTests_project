@@ -28,3 +28,13 @@ $ mv .env.test .env
 ```
 ### Quick start
 Access at the website on http://localhost:8010/contact/
+
+#### Execute PHPUnit test
+```bash
+$ docker-compose exec web ./bin/phpunit
+PHPUnit 7.5.20 by Sebastian Bergmann and contributors.
+Testing Project Test Suite
+.................                       17 / 17 (100%)
+Time: 1.3 seconds, Memory: 8.00 MB
+OK (17 tests, 19 assertions)
+```
