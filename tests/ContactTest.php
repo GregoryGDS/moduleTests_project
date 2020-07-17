@@ -9,94 +9,91 @@ use PHPUnit\Framework\TestCase;
 
 class ContactTest extends TestCase
 {
+    private $contact;
+
+    public function setUp()
+    {
+        $this->contact = new Contact();
+        $this->contact->create('Doe', 'John', 'john.doe@mail.com', 'Test', '0323000000');
+    }
+
     public function testLastnameNotEmpty(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertNotEmpty($contact->getLastname());
+        $this->assertNotEmpty($this->contact->getLastname());
     }
 
     public function testLastnameEmpty(){
-        $contact = new Contact('', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertEmpty($contact->getLastname());
+        $this->contact->setLastName('');
+        $this->assertEmpty($this->contact->getLastname());
     }
 
     public function testLastnameFormat(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertIsString($contact->getLastname());
+        $this->assertIsString($this->contact->getLastname());
     }
 
     public function testFirstnameNotEmpty(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertNotEmpty($contact->getFirstname());
+        $this->assertNotEmpty($this->contact->getFirstname());
     }
 
     public function testFirstnameEmpty(){
-        $contact = new Contact('Doe', '', 'john.doe@mail.com', 'Test');
-        $this->assertEmpty($contact->getFirstname());
+        $this->contact->setFirstname('');
+        $this->assertEmpty($this->contact->getFirstname());
     }
 
     public function testFirstnameFormat(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertIsString($contact->getFirstname());
+        $this->assertIsString($this->contact->getFirstname());
     }
 
     public function testEmailNotEmpty(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertNotEmpty($contact->getEmail());
+        $this->assertNotEmpty($this->contact->getEmail());
     }
 
     public function testEmailEmpty(){
-        $contact = new Contact('Doe', 'John', '', 'Test');
-        $this->assertEmpty($contact->getEmail());
+        $this->contact->setEmail('');
+        $this->assertEmpty($this->contact->getEmail());
     }
 
     public function testEmailFormat(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertIsString($contact->getEmail());
+        $this->assertIsString($this->contact->getEmail());
     }
 
     public function testEmailValid(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertRegExp('/^.+\@\S+\.\S+$/', $contact->getEmail());
+        $this->assertRegExp('/^.+\@\S+\.\S+$/', $this->contact->getEmail());
     }
 
     public function testEmailInvalid(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail', 'Test');
-        $this->assertNotRegExp('/^.+\@\S+\.\S+$/', $contact->getEmail());
+        $this->contact->setEmail('john.die@mail');
+        $this->assertNotRegExp('/^.+\@\S+\.\S+$/', $this->contact->getEmail());
     }
 
     public function testTagNotEmpty(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertNotEmpty($contact->getTag());
+        $this->assertNotEmpty($this->contact->getTag());
     }
 
     public function testTagEmpty(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', '');
-        $this->assertEmpty($contact->getTag());
+        $this->contact->setTag('');
+        $this->assertEmpty($this->contact->getTag());
     }
 
     public function testTagFormat(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test');
-        $this->assertIsString($contact->getTag());
+        $this->assertIsString($this->contact->getTag());
     }
 
     public function testPhoneNumberFormat(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'Test', '0323000000');
-        $this->assertIsString($contact->getPhoneNumber());
+        $this->assertIsString($this->contact->getPhoneNumber());
     }
 
     public function testValidPhoneNumber(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'test', '0323000000');
-        $this->assertRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $contact->getPhoneNumber());
+        $this->assertRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $this->contact->getPhoneNumber());
 
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'test', '+33323000000');
-        $this->assertRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $contact->getPhoneNumber());
+        $this->contact->setPhoneNumber('+33323000000');
+        $this->assertRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $this->contact->getPhoneNumber());
 
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'test', '03-23-00-00-00');
-        $this->assertRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $contact->getPhoneNumber());
+        $this->contact->setPhoneNumber('03-23-00-00-00');
+        $this->assertRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $this->contact->getPhoneNumber());
     }
 
     public function testInvalidPhoneNumber(){
-        $contact = new Contact('Doe', 'John', 'john.doe@mail.com', 'test', '03230000XX');
-        $this->assertNotRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $contact->getPhoneNumber());
+        $this->contact->setPhoneNumber('03230000XX');
+        $this->assertNotRegExp('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\0-9]*$/', $this->contact->getPhoneNumber());
     }
 }

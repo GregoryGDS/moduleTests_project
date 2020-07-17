@@ -42,7 +42,7 @@ class Contact
      */
     private $tag;
 
-    public function __construct(string $lastname, string $firstname, string $email, string $tag, ?string $phoneNumber = null)
+    public function create(string $lastname, string $firstname, string $email, string $tag, ?string $phoneNumber = null)
     {
         $this->lastname = $lastname;
         $this->firstname = $firstname;
