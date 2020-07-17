@@ -42,6 +42,15 @@ class Contact
      */
     private $tag;
 
+    public function __construct(string $lastname, string $firstname, string $email, string $tag, ?string $phoneNumber = null)
+    {
+        $this->lastname = $lastname;
+        $this->firstname = $firstname;
+        $this->email = $email;
+        $this->tag = $tag;
+        $this->phoneNumber = $phoneNumber;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
